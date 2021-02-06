@@ -12,6 +12,8 @@ COPY . .
 RUN npm run build
 
 FROM nginx
+# we need to tell AWS which port to use
+EXPOSE 80
 # Using build files from prev task
 COPY --from=0 /app/build /usr/share/nginx/html
 # Automaticly start on port 80
