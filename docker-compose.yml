@@ -1,0 +1,19 @@
+version: '3' # version 2 is default
+services:
+  web:
+   build:
+     context: . # docker files is searched in current directory
+     dockerfile: Dockerfile.dev # name needs to be specified name if its not "Dockerfile"
+   ports:
+     - "3000:3000" # ports Client:Container
+   volumes:
+     - /app/node_modules # This is not listened by container
+     - .:/app # container is listening for changes in directory files
+  tests: # There is no need to specify ports for test
+   build:
+     context: .
+     dockerfile: Dockerfile.dev
+   volumes:
+     - /app/node_modules
+     - .:/app
+   command: ["npm","run","test"] # init command after running
